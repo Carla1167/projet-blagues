@@ -1,4 +1,4 @@
 import pyjokes
-def tell_joke(lang= "en") :
-    print("Blague modifiée par Développeur B")
+def tell_joke(lang="en"):
+    print("Blague combinée des deux développeurs")
 
