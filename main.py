@@ -1,6 +1,4 @@
 import pyjokes
-def tell_joke():
-    print(pyjokes.get_joke())
+def tell_joke(lang= "en") :
+    print("Blague modifiée par Développeur B")
 
-if __name__=="__main__":
-    tell_joke()
