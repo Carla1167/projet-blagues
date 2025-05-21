@@ -1,0 +1,10 @@
+fastapi==0.109.2
+uvicorn==0.27.1
+google-cloud-storage==2.14.0
+python-dotenv==1.0.1
+vertexai==0.0.1
+google-cloud-aiplatform==1.42.1
+pydantic==2.6.1
+cryptography>=41.0.5,<45.0.0
+pandas>=1.4.0,<3.0.0
+pyopenssl==25.0.0
