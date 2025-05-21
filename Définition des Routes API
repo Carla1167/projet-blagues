@@ -1,0 +1,59 @@
+@app.get("/hello")
+async def hello():
+    return {"message": "Bienvenue sur mon API !"}
+
+@app.get("/status")
+async def status():
+    return {"status": "ok", "timestamp": datetime.now().isoformat()}
+
+@app.get("/data")
+async def get_data(filename: str = Query(None), format: Literal["json", "csv"] = Query(None), action: Literal["read", "write"] = Query("read"), data: Dict[str, Any] = None):
+    # Gestion des fichiers dans GCS (lecture et écriture)
+    # ... [logique complète déjà écrite] ...
+
+@app.post("/data/{filename}")
+async def add_data(filename: str, data: Dict[str, Any]):
+    # Ajout de données à un fichier GCS
+    # ... [logique complète déjà écrite] ...
+
+@app.get("/joke")
+async def get_joke():
+    try:
+        joke = generate_joke()
+        return {"joke": joke}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/config")
+async def check_config():
+    return {
+        "bucket_name": os.getenv("BUCKET_NAME"),
+        "file_path": os.getenv("FILE_PATH"),
+        "credentials_path": os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    }
+
+@app.get("/debug")
+async def debug():
+    try:
+        client = storage.Client(project=os.getenv("GCP_PROJECT_ID"))
+        bucket = client.bucket(os.getenv("BUCKET_NAME"))
+        blobs = list(bucket.list_blobs())
+        return {
+            "project_id": os.getenv("GCP_PROJECT_ID"),
+            "bucket_name": os.getenv("BUCKET_NAME"),
+            "credentials_path": os.getenv("GOOGLE_APPLICATION_CREDENTIALS"),
+            "credentials_exist": os.path.exists(os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")),
+            "bucket_exists": bucket.exists(),
+            "files_in_bucket": [blob.name for blob in blobs],
+            "current_working_directory": os.getcwd()
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "error_type": type(e).__name__,
+            "project_id": os.getenv("GCP_PROJECT_ID"),
+            "bucket_name": os.getenv("BUCKET_NAME"),
+            "credentials_path": os.getenv("GOOGLE_APPLICATION_CREDENTIALS"),
+            "credentials_exist": os.path.exists(os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")),
+            "current_working_directory": os.getcwd()
+        }
