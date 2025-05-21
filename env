@@ -1,0 +1,6 @@
+BUCKET_NAME=blague1
+FILE_PATH=data.json
+GCP_PROJECT_ID=blague
+GOOGLE_APPLICATION_CREDENTIALS="C:/Users/noepe/OneDrive/Documents/ESME INGE 2/data tools/blague-8dfa69a43a8d.json"
+GCP_LOCATION=us-central1
+
